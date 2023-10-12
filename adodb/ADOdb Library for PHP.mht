@@ -1,0 +1,825 @@
+From: <Guardado por Microsoft Internet Explorer 7>
+Subject: ADOdb Library for PHP
+Date: Tue, 8 Apr 2008 13:13:18 -0300
+MIME-Version: 1.0
+Content-Type: text/html;
+	charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://phplens.com/adodb/
+X-MimeOLE: Produced By Microsoft MimeOLE V6.00.2900.3198
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML><HEAD><TITLE>ADOdb Library for PHP</TITLE>
+<META http-equiv=3DContent-Type content=3D"text/html; =
+charset=3Diso-8859-1">
+<META content=3D"MSHTML 6.00.6000.16608" name=3DGENERATOR></HEAD>
+<BODY>
+<H1>ADOdb Library for PHP Manual </H1>V4.96 Sept 2007 (c) 2000-2007 John =
+Lim=20
+(jlim#natsoft.com) <FONT size=3D1>
+<P>Thanks to Gy=F5rv=E1ri 'Scr34m' G=E1bor (scr34m#frontember.hu) for =
+html splitting=20
+and conversion to chm.</P>
+<P>This software is dual licensed using BSD-Style and LGPL. Where there =
+is any=20
+discrepancy, the BSD-Style license will take precedence. This means you =
+can use=20
+it in proprietary and commercial products.</P></FONT>
+<P>Useful ADOdb links: <A=20
+href=3D"http://adodb.sourceforge.net/#download">Download</A> &nbsp; <A=20
+href=3D"http://adodb.sourceforge.net/#docs">Other Docs</A> </P>
+<P>This document covers the core ADOdb functions. ADOdb has many other =
+modules=20
+which are documented elsewhere: <BR></P>
+<BLOCKQUOTE>- <A =
+href=3D"http://phplens.com/lens/adodb/docs-datadict.htm">Data=20
+  Dictionary</A><BR>- <A=20
+  =
+href=3D"http://phplens.com/lens/adodb/docs-session.htm">Database-backed=20
+  Sessions</A><BR>- <A=20
+  href=3D"http://phplens.com/lens/adodb/docs-perf.htm">Database =
+Performance=20
+  Monitoring</A>. </BLOCKQUOTE>
+<HR>
+
+<H3>Table of Contents</H3>
+<UL>
+  <LI><A =
+href=3D"http://phplens.com/adodb/introduction.html">Introduction</A>=20
+  <LI><A href=3D"http://phplens.com/adodb/unique.features.html">Unique =
+Features of=20
+  ADOdb</A>=20
+  <LI><A =
+href=3D"http://phplens.com/adodb/how.people.are.using.adodb.html">How=20
+  People are using ADOdb</A>=20
+  <LI><A=20
+  =
+href=3D"http://phplens.com/adodb/feature.requests.and.bug.reports.html">F=
+eature=20
+  Requests and Bug Reports</A>=20
+  <LI><A =
+href=3D"http://phplens.com/adodb/installation.guide.html">Installation=20
+  Guide</A>=20
+  <LI><A=20
+  =
+href=3D"http://phplens.com/adodb/installation.guide.html#mininstall">Mini=
+mal=20
+  Install</A>=20
+  <LI><A =
+href=3D"http://phplens.com/adodb/code.initialization.html#init">Code=20
+  Initialization and Connecting to Databases</A>=20
+  <UL>
+    <LI><A=20
+    =
+href=3D"http://phplens.com/adodb/code.initialization.html#dsnsupport">Dat=
+a=20
+    Source Names</A>=20
+    <LI><A=20
+    =
+href=3D"http://phplens.com/adodb/code.initialization.html#connect_ex">Con=
+nection=20
+    Examples</A> </LI></UL>
+  <LI><A =
+href=3D"http://phplens.com/adodb/code.initialization.html#speed">High=20
+  Speed ADOdb - tuning tips</A>=20
+  <LI><A =
+href=3D"http://phplens.com/adodb/code.initialization.html#hack">Hacking=20
+  and Modifying ADOdb Safely</A>=20
+  <LI><A =
+href=3D"http://phplens.com/adodb/code.initialization.html#php5">PHP5=20
+  Features</A>=20
+  <UL>
+    <LI><FONT size=3D2><A=20
+    =
+href=3D"http://phplens.com/adodb/code.initialization.html#php5iterators">=
+foreach=20
+    iterators</A></FONT>
+    <LI><FONT size=3D2><A=20
+    =
+href=3D"http://phplens.com/adodb/code.initialization.html#php5exceptions"=
+>exceptions</A></FONT></LI></UL>
+  <LI><A =
+href=3D"http://phplens.com/adodb/supported.databases.html">Supported=20
+  Databases</A>=20
+  <LI><A href=3D"http://phplens.com/adodb/tutorial.html">Tutorials</A>=20
+  <UL>
+    <LI><A href=3D"http://phplens.com/adodb/tutorial.select.html">Select =
+
+    Statement</A>=20
+    <LI><A=20
+    =
+href=3D"http://phplens.com/adodb/tutorial.advanced.select.with.field.obje=
+cts.html">Advanced=20
+    Select with Field Objects</A>=20
+    <LI><A =
+href=3D"http://phplens.com/adodb/tutorial.inserting.html">Inserting</A>=20
+
+    <LI><A =
+href=3D"http://phplens.com/adodb/tutorial.debugging.html">Debugging</A>=20
+
+    <LI><A =
+href=3D"http://phplens.com/adodb/tutorial.mysql.and.menus.html">MySQL=20
+    and Menus</A>=20
+    <LI><A=20
+    =
+href=3D"http://phplens.com/adodb/tutorial.connecting.to.multiple.database=
+s.html">Connecting=20
+    to Multiple Databases at once </A>
+    <LI><A=20
+    =
+href=3D"http://phplens.com/adodb/tutorial.generating.update.and.insert.sq=
+l.html">Generating=20
+    Update and Insert SQL </A>
+    <LI><A=20
+    =
+href=3D"http://phplens.com/adodb/tutorial.implementing.scrolling.with.nex=
+t.and.previous.html">Implementing=20
+    Scrolling with Next and Previous</A>=20
+    <LI><A=20
+    =
+href=3D"http://phplens.com/adodb/tutorial.exporting.in.csv.or.tab.delimit=
+ed.format.html">Exporting=20
+    in CSV or Tab-Delimited Format </A>
+    <LI><A=20
+    =
+href=3D"http://phplens.com/adodb/tutorial.recordset.filters.html">Records=
+et=20
+    Filters</A>=20
+    <LI><A=20
+    =
+href=3D"http://phplens.com/adodb/tutorial.smart.transactions.html">Smart =
+
+    Transactions</A> </LI></UL>
+  <LI><A=20
+  =
+href=3D"http://phplens.com/adodb/using.custom.error.handlers.and.pear_err=
+or.html">Using=20
+  Custom Error Handlers and PEAR_Error</A>=20
+  <LI><A href=3D"http://phplens.com/adodb/data.source.names.html">Data =
+Source=20
+  Names</A>=20
+  <LI><A =
+href=3D"http://phplens.com/adodb/caching.of.recordsets.html">Caching of=20
+  Recordsets</A>=20
+  <LI><A href=3D"http://phplens.com/adodb/pivot.tables.html">Pivot =
+Tables</A>=20
+  <LI><A href=3D"http://phplens.com/adodb/reference.html">Class =
+Reference</A>=20
+  <UL>
+    <LI>Variables:=20
+    <UL>
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.varibles.adodb_lang.html#adodb=
+_ansi_padding_off">$ADODB_ANSI_PADDING_OFF</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.varibles.adodb_countrecs.html"=
+>$ADODB_COUNTRECS</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.varibles.adodb_cache_dir.html"=
+>$ADODB_CACHE_DIR</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.varibles.adodb_fetch_mode.html=
+">$ADODB_FETCH_MODE=20
+      </A>
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/tutorial.generating.update.and.insert.sq=
+l.html#ADODB_FORCE_TYPE">$ADODB_FORCE_TYPE</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.varibles.adodb_lang.html">$ADO=
+DB_LANG</A>=20
+      </LI></UL>
+    <LI>Constants:=20
+    <UL>
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.constants.adodb_assoc_case.htm=
+l">ADODB_ASSOC_CASE=20
+      </A></LI></UL>
+    <LI><A=20
+    =
+href=3D"http://phplens.com/adodb/reference.functions.adoconnection.html">=
+<STRONG>ADOConnection</STRONG>=20
+    </A>
+    <UL>
+      <LI><STRONG>Connection</STRONG> </LI></UL>
+    <UL>
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.connect.html">Connec=
+t</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.pconnect.html">PConn=
+ect</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.nconnect.html">NConn=
+ect</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.nconnect.html#isconn=
+ected">IsConnected</A>=20
+
+      <LI><STRONG>Executing SQL</STRONG>=20
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.execute.html">Execut=
+e</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.cacheexecute.html">C=
+acheExecute</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.executecursor.html">=
+ExecuteCursor=20
+      (oci8 only)</A>=20
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.selectlimit.html">Se=
+lectLimit</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.cacheselectlimite.ht=
+ml">CacheSelectLimit</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.cacheflush.html">Cac=
+heFlush</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.prepare.html">Prepar=
+e</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.preparesp.html">Prep=
+areSP</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.parameter.html">InPa=
+rameter</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.parameter.html">OutP=
+arameter</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.parameter.html#param=
+">Param</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.getone.html">GetOne<=
+/A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.cachegetone.html">Ca=
+cheGetOne</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.getone.html#getassoc=
+1">GetAssoc</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.getone.html#cacheget=
+assoc">CacheGetAssoc</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.getrow.html">GetRow<=
+/A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.cachegetrow.html">Ca=
+cheGetRow</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.getall.html">GetAll<=
+/A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.cachegetall.html">Ca=
+cheGetAll</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.getcol.html">GetCol<=
+/A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.cachegetcol.html">Ca=
+cheGetCol</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.replace.html">Replac=
+e</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.getupdatesql.html#au=
+toexecute">AutoExecute</A>=20
+
+      <LI><STRONG>Generates SQL</STRONG>=20
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.getupdatesql.html#ge=
+tupdatesql">GetUpdateSQL</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.getinsertsql.html">G=
+etInsertSQL</A>=20
+
+      <LI><STRONG>Blob/Clob Handling</STRONG>=20
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.updateblob.html">Upd=
+ateBlob</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.updateclob.html">Upd=
+ateClob</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.updateblobfile.html"=
+>UpdateBlobFile</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.blobencode.html">Blo=
+bEncode</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.blobdecode.html">Blo=
+bDecode</A>=20
+
+      <LI><STRONG>Paging/Scrolling</STRONG>=20
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.pageexecute.html">Pa=
+geExecute</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.cachepageexecute.htm=
+l">CachePageExecute</A>=20
+
+      <LI><STRONG>CleanUp</STRONG>=20
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.close.html">Close</A=
+>=20
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.cacheflush.html">Cac=
+heFlush</A>=20
+
+      <LI><STRONG>Transactions</STRONG>=20
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.transactions.html#st=
+arttrans">StartTrans</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.transactions.html#co=
+mpletetrans">CompleteTrans</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.transactions.html#fa=
+iltrans">FailTrans</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.transactions.html#ha=
+sfailedtrans">HasFailedTrans</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.transactions.html#Se=
+tTransactionMode">SetTransactionMode</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.begintrans.html">Beg=
+inTrans</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.committrans.html">Co=
+mmitTrans</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.rollbacktrans.html">=
+RollbackTrans</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.setfetchmode.html">S=
+etFetchMode</A>=20
+
+      <LI><STRONG>String Manipulation</STRONG>=20
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.concat.html">Concat<=
+/A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.concat.html#ifnull">=
+IfNull</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.concat.html#length">=
+length</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.concat.html#substr">=
+substr</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.concat.html#random">=
+random</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.qstr.html">qstr</A> =
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.quote.html">quote</A=
+>=20
+      <LI><STRONG>Date Handling</STRONG>=20
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.dbdate.html">DBDate<=
+/A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.dbdate.html#binddate=
+">BindDate</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.dbtimestamp.html">DB=
+TimeStamp</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.dbtimestamp.html#bin=
+dtimestamp">BindTimeStamp</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.unixdate.html">UnixD=
+ate</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.unixtimestamp.html">=
+UnixTimeStamp</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.offsetdate.html">Off=
+setDate</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.sqldate.html">SQLDat=
+e</A>=20
+
+      <LI><STRONG>Row Management</STRONG>=20
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.affected_rows.html">=
+Affected_Rows</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.insert_id.html">Inse=
+rt_ID</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.insert_id.html#rowlo=
+ck">RowLock</A>=20
+
+      <LI><STRONG>Sequences</STRONG>=20
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.genid.html">GenID</A=
+>=20
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.createsequence.html"=
+>CreateSequence</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.dropsequenced.html">=
+DropSequence</A>=20
+
+      <LI><STRONG>Error Handling </STRONG>
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.errormsg.html">Error=
+Msg</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.errorno.html#errno">=
+ErrorNo</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.errorno.html#metaerr=
+or">MetaError</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.errorno.html#metaerr=
+msg">MetaErrMsg</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.errormsg.html#ignore=
+errors">IgnoreErrors</A>=20
+
+      <LI><STRONG>Data Dictionary</STRONG>=20
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.metadatabases.html">=
+MetaDatabases</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.metatables.html">Met=
+aTables</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.metacolumns.html">Me=
+taColumns</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.metacolumnnames.html=
+">MetaColumnNames</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.metaprimarykeys.html=
+">MetaPrimaryKeys=20
+      and MetaForeignKeys</A>=20
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.serverinfo.html">Ser=
+verInfo</A>=20
+
+      <LI><STRONG>Statistics and Query Rewriting</STRONG>=20
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.fnexecute.and.fncach=
+eexecute.properties.html">LogSQL</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.fnexecute.and.fncach=
+eexecute.properties.html#fnExecute">fnExecute=20
+      and fnCacheExecute</A>=20
+      <LI><STRONG>Deprecated</STRONG>=20
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.bind.html">Bind</A> =
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.blankrecordset.html"=
+>BlankRecordSet</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.parameter.html">Para=
+meter</A>=20
+      </LI></UL>
+    <LI><A=20
+    =
+href=3D"http://phplens.com/adodb/reference.functions.adorecordset.html"><=
+STRONG>ADORecordSet</STRONG></A>=20
+
+    <UL>
+      <LI><STRONG>Returns one row</STRONG>=20
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.fetchrow.html">Fetch=
+Row</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.fetchinto.html">Fetc=
+hInto</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.fetchobject.html">Fe=
+tchObject</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.fetchnextobjects.htm=
+l">FetchNextObject</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.fetchobj.html">Fetch=
+Obj</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.fetchnextobj.html">F=
+etchNextObj</A>=20
+
+      <LI><STRONG>Returns all rows</STRONG>=20
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.getarray.html">GetAr=
+ray</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.getrows.html">GetRow=
+s</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.getassoc.html">GetAs=
+soc</A>=20
+
+      <LI><STRONG>Scrolling</STRONG>=20
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.move.html">Move</A> =
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.movenext.html">MoveN=
+ext</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.movefirst.html">Move=
+First</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.movelast.html">MoveL=
+ast</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.absoluteposition.htm=
+l">AbsolutePosition</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.cachegetrow.html">Cu=
+rrentRow</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.atfirstpage.html">At=
+FirstPage</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.atlastpage.html">AtL=
+astPage</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.absolutepage.html">A=
+bsolutePage</A>=20
+
+      <LI><STRONG>Menu generation</STRONG>=20
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.getmenu.html">GetMen=
+u</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.getmenu2.html">GetMe=
+nu2</A>=20
+
+      <LI><STRONG>Dates</STRONG>=20
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.userdate.html">UserD=
+ate</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.usertimestamp.html">=
+UserTimeStamp</A>=20
+
+      <LI><STRONG>Recordset info</STRONG>=20
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.recordcount.html">Re=
+cordCount</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.po_recordcount.html"=
+>PO_RecordSet</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.nextrecordset.html">=
+NextRecordSet</A>=20
+
+      <LI><STRONG>Field info</STRONG>=20
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.fieldcount.html">Fie=
+ldCount</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.fetchfield.html">Fet=
+chField</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.metatype.html">MetaT=
+ype</A>=20
+
+      <LI><STRONG>Cleanup</STRONG>=20
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.close2.html">Close</=
+A>=20
+      <LI><STRONG>Deprecated</STRONG>=20
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.getrowassoc.html">Ge=
+tRowAssoc</A>=20
+
+      <LI><A=20
+      =
+href=3D"http://phplens.com/adodb/reference.functions.fields.html">Fields<=
+/A>=20
+      </LI></UL>
+    <LI><A =
+href=3D"http://phplens.com/adodb/functions.rs2html.html">rs2html</A>=20
+    </LI></UL>
+  <LI><A =
+href=3D"http://phplens.com/adodb/database.driver.guide.html">Database=20
+  Driver Guide</A>=20
+  <LI><A href=3D"http://phplens.com/adodb/todo.html">ToDo</A>=20
+  <LI><A href=3D"http://phplens.com/adodb/change.log.html">Change =
+Log</A>=20
+</LI></UL><BR>
+<DIV align=3Dcenter><FONT size=3D2>Sponsored by <A=20
+href=3D"http://phplens.com/?adodb_docs=3D1">phpLens</A></FONT></DIV></BOD=
+Y></HTML>

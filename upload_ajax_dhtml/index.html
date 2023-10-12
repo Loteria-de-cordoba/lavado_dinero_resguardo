@@ -1,0 +1,34 @@
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="codebase/dhtmlxvault.css" />
+    <link href="../estilo/estilo.css" rel="stylesheet" type="text/css">
+    <script language="JavaScript" type="text/javascript" src="codebase/dhtmlxvault.js"></script>
+    <script language="JavaScript" type="text/javascript">
+        var vault = null;
+        function doOnLoad() {
+            vault = new dhtmlXVaultObject();
+            vault.setImagePath("codebase/imgs/");
+            vault.setServerHandlers("UploadHandler.php", "GetInfoHandler.php", "GetIdHandler.php");
+            vault.setFilesLimit(3);
+			/*vault.onAddFile = function(fileName) {
+				var ext = this.getFileExtension(fileName);
+				if (ext != "gif") {
+					alert ("Solo puede subir archivos JPG. Intente nuevamente. ");
+					return false;
+				} else {
+					alert ('UploadedCount:'+vault.uploadedCount+' Counter:'+vault.counter);
+					return true;
+				}
+			}*/
+			vault.create("vault1");
+	}
+    </script>
+</head>
+<body onLoad="doOnLoad()">
+<table>
+	<tr><td class="texto5"> Adjuntar archivos </td></tr>
+	<tr><td><div id="vault1" ></div></td></tr>
+</table>
+</body>
+</html>
+

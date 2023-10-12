@@ -1,0 +1,4 @@
+grant select on adm.area to rol_lavado_dinero_op_unico
+grant select on conta.aciento_cabecera to rol_lavado_dinero_op_unico
+grant select on sucursal to rol_lavado_dinero_op_unico
+grant select on personal to rol_lavado_dinero_op_unico
